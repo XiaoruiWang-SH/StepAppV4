@@ -34,13 +34,14 @@ public class  StepCounterListener implements SensorEventListener {
 
     //TODO 14: Pass the TextView to the listener class using the constructor
     //TODO 17 (Your Turn): Add the CircularProgressIndicator as a paramter in the constructor
+    CircularProgressIndicator circularProgressIndicator;
 
-    public StepCounterListener(Context context, TextView stepCountsView)
+    public StepCounterListener(Context context, TextView stepCountsView, CircularProgressIndicator circularProgressIndicator)
     {
         this.stepCountsView = stepCountsView;
         this.context = context;
         //TODO 18 (Your Turn): Assign the CircularProgressIndicator variable
-
+        this.circularProgressIndicator = circularProgressIndicator;
     }
 
 
@@ -77,16 +78,17 @@ public class  StepCounterListener implements SensorEventListener {
                 }
 
                 // TODO 11 (YOUR TURN): Compute the magnitude for the acceleration and put it in accMag
-
+                accMag = Math.sqrt(x * x + y* y + z *z);
 
                 // TODO 12 (YOUR TURN): Store the magnitude for the acceleration in accSeries
-
+                accSeries.add((int)accMag);
 
                 peakDetection();
 
                 break;
 
             case Sensor.TYPE_STEP_DETECTOR:
+                Log.d("TYPE_STEP_DETECTOR", "detect a step");
                 // TODO (Assignment 02): Use the STEP_DETECTOR  to count the number of steps
                 // TODO (Assignment 02): The STEP_DETECTOR is triggered every time a step is detected
                 // TODO (Assignment 02): The sensorEvent.values of STEP_DETECTOR has only one value for the detected step count
@@ -128,7 +130,7 @@ public class  StepCounterListener implements SensorEventListener {
                 saveStepInDatabase();
 
                 //TODO 19 (Your Turn): Set the progress of the CircularProgressIndicator variable
-
+                circularProgressIndicator.setProgress(accStepCounter);
 
 
             }

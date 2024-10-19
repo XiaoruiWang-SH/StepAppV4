@@ -3,7 +3,7 @@
     <style name="Theme.StepAppV4" parent="Theme.Material3.Light.NoActionBar">
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/light_md_theme_primary</item>
         <item name="colorOnPrimary">@color/light_md_theme_onPrimary</item>

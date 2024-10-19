@@ -56,7 +56,9 @@ public class StepsFragment extends Fragment {
         // TODO 3: Get an instance of sensor manager
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         // TODO 4: Assign ACC. sensor
-        accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        accSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
+        Sensor accSensor1 = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        Sensor accSensor2 = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
 
         // Toggle group button
@@ -72,7 +74,7 @@ public class StepsFragment extends Fragment {
                     {
                         //TODO 20 (Your Turn): Pass the progress to the constructor of the listener class
 
-                        sensorListener = new StepCounterListener(getContext(), stepsTextView);
+                        sensorListener = new StepCounterListener(getContext(), stepsTextView, progressBar);
 
                         sensorManager.registerListener(sensorListener, accSensor, SensorManager.SENSOR_DELAY_NORMAL);
                         Toast.makeText(getContext(), R.string.start_text, Toast.LENGTH_LONG).show();
