@@ -28,20 +28,19 @@ public class  StepCounterListener implements SensorEventListener {
     private int lastAddedIndex = 1;
     int stepThreshold = 6;
     private  Context context;
-    //TODO 13: Declare the TextView in the listener class
     TextView stepCountsView;
-    //TODO 16 (Your Turn): Declare the CircularProgressIndicator in the listener class
-
-    //TODO 14: Pass the TextView to the listener class using the constructor
-    //TODO 17 (Your Turn): Add the CircularProgressIndicator as a paramter in the constructor
     CircularProgressIndicator circularProgressIndicator;
+    private boolean stopRecording = false;
+    private int stepsCounter = 0;
 
-    public StepCounterListener(Context context, TextView stepCountsView, CircularProgressIndicator circularProgressIndicator)
+    public StepCounterListener(Context context, TextView stepCountsView, CircularProgressIndicator circularProgressIndicator, int currentSepCounter)
     {
         this.stepCountsView = stepCountsView;
         this.context = context;
         //TODO 18 (Your Turn): Assign the CircularProgressIndicator variable
         this.circularProgressIndicator = circularProgressIndicator;
+        this.stopRecording = false;
+        this.stepsCounter = currentSepCounter;
     }
 
 
@@ -88,16 +87,24 @@ public class  StepCounterListener implements SensorEventListener {
                 break;
 
             case Sensor.TYPE_STEP_DETECTOR:
-                Log.d("TYPE_STEP_DETECTOR", "detect a step");
                 // TODO (Assignment 02): Use the STEP_DETECTOR  to count the number of steps
                 // TODO (Assignment 02): The STEP_DETECTOR is triggered every time a step is detected
                 // TODO (Assignment 02): The sensorEvent.values of STEP_DETECTOR has only one value for the detected step count
+                if (stopRecording) return;
+                if (sensorEvent.values[0] == 1.0f) {
+                    // A step has been detected
+                    Log.d("StepDetector", "Step detected!");
+                    countSteps(sensorEvent.values[0]);
+                }
 
         }
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+    public void stopRecording() {
+        this.stopRecording = true;
     }
 
     private void peakDetection() {
@@ -139,7 +146,14 @@ public class  StepCounterListener implements SensorEventListener {
 
     private void countSteps(float step)
     {
+        stepsCounter += 1;
+        Log.d("ACC STEPS: ", String.valueOf(stepsCounter));
 
+        stepCountsView.setText(String.valueOf(stepsCounter));
+
+        saveStepInDatabase();
+
+        circularProgressIndicator.setProgress(stepsCounter);
     }
     private void saveStepInDatabase()
     {
@@ -152,15 +166,13 @@ public class  StepCounterListener implements SensorEventListener {
         String currentDay = dateTimestamp.substring(0,10);
         String hour = dateTimestamp.substring(11,13);
 
-
-
         ContentValues values = new ContentValues();
         values.put(StepAppOpenHelper.KEY_TIMESTAMP, dateTimestamp);
         values.put(StepAppOpenHelper.KEY_DAY, currentDay);
         values.put(StepAppOpenHelper.KEY_HOUR, hour);
 
         //Get the writable database
-        StepAppOpenHelper databaseOpenHelper =   new StepAppOpenHelper(this.context);;
+        StepAppOpenHelper databaseOpenHelper = new StepAppOpenHelper(this.context);;
         SQLiteDatabase database = databaseOpenHelper.getWritableDatabase();
         long id = database.insert(StepAppOpenHelper.TABLE_NAME, null, values);
     }
