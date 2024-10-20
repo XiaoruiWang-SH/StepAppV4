@@ -40,36 +40,36 @@ Use case: Commonly used in apps that have multiple top-level destinations or sec
 #### Change the icon of the app.
 1. Selcet a image creating all type of icons in res/mipmap.
 2. Modified the configuration in AndroidManifest.xml.
-    <div style="text-align:center">
-    <img src="ModificationOfAppIcon.png" style="width:200"/>
-    <img src="Screenshot_appIcon.jpg" style="width:200"/>
+    <div style="text-align:center;">
+    <img src="ModificationOfAppIcon.png" width="400"/>
+    <img src="Screenshot_appIcon.jpg" width="200"/>
     </div>
 
 #### Implement the dark theme
 1. Download dark and modify the names, put them in res/values/themes.xml
     <div style="text-align:center">
-    <img src="DarkModeImplementation.png" style="width:200"/>
+    <img src="DarkModeImplementation.png" width="400"/>
     </div>
 2. Change the way we set colors in format: "?attr/colorName"
     <div style="text-align:center">
-    <img src="Screenshot_colorSetting.png" style="width:200"/>
+    <img src="Screenshot_colorSetting.png" width="400"/>
     </div>
     <div style="text-align:center">
-    <img src="Screenshot_darkMode_StepAppV4.jpg" style="width:200"/>
-    <img src="Screenshot_lightMode_StepAppV4.jpg" style="width:200"/>
+    <img src="Screenshot_darkMode_StepAppV4.jpg" width="200"/>
+    <img src="Screenshot_lightMode_StepAppV4.jpg" width="200"/>
     
 ### Exercise 3 – Step Counter
 #### See screenshot and code
 In StepsFragment:
     <div style="text-align:center">
-    <img src="StepFragment.png" style="width:400"/>
+    <img src="StepFragment.png" width="400"/>
     </div>
 
 In StepCounterListener:
     <div style="text-align:center">
-    <img src="StepDetection.png" style="width:400"/>
+    <img src="StepDetection.png" width="400"/>
     </div>
     <div style="text-align:center">
-    <img src="CountStepsMethod.png" style="width:400"/>
+    <img src="CountStepsMethod.png" width="400"/>
     </div>
     
