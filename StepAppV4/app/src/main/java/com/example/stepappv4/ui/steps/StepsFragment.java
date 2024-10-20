@@ -63,20 +63,23 @@ public class StepsFragment extends Fragment {
         final String dateTimestamp = jdf.format(timeInMillis);
         String currentDay = dateTimestamp.substring(0,10);
 
+        // read the saved stepCounter from local storage using loadSingleRecord method in StepAppOpenHelper
         stepAppOpenHelper = new StepAppOpenHelper(getContext());
         stepsCounter = stepAppOpenHelper.loadSingleRecord(getContext(), currentDay);
         Log.d("RETRIEVED STEPS TODAY: ", String.valueOf(stepsCounter));
 
+        // set stepsCounter read from storage to progressBar.progress
         progressBar = (CircularProgressIndicator)  root.findViewById(R.id.progressBar);
         progressBar.setMax(goal);
         progressBar.setProgress(stepsCounter);
-
+        // set stepsCounter read from storage to stepsTextView
         stepsTextView = (TextView) root.findViewById(R.id.stepsCount_textview);
         stepsTextView.setText(""+stepsCounter);
 
         // TODO 3: Get an instance of sensor manager
         sensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        // detectorSensor
+
+        // create a detectorSensor
         detectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
         // Toggle group button
@@ -85,6 +88,7 @@ public class StepsFragment extends Fragment {
             @Override
             public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
                 if (isChecked){
+                    // handle button click event
                     handleButtonCheck(checkedId);
                 }
             }

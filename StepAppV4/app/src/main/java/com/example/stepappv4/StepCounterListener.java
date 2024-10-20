@@ -148,13 +148,14 @@ public class  StepCounterListener implements SensorEventListener {
     {
         stepsCounter += 1;
         Log.d("ACC STEPS: ", String.valueOf(stepsCounter));
-
+        // update stepCountsView
         stepCountsView.setText(String.valueOf(stepsCounter));
-
+        // save to local storage using StepAppOpenHelper
         saveStepInDatabase();
-
+        // update progressbar
         circularProgressIndicator.setProgress(stepsCounter);
     }
+
     private void saveStepInDatabase()
     {
         //get current Timestamp
